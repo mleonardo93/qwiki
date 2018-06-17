@@ -12,6 +12,8 @@
   <body>
     <div class="container">
       <ul class="nav nav-tabs">
+        <li><%= link_to "Home", root_path %></li>
+        <li><%= link_to "Wikis", wikis_path %></li>
         <% if current_user %>
           <li class="pull-right"><%= link_to "Sign out", destroy_user_session_path, method: :delete %></li>
         <% else %>
@@ -24,13 +26,7 @@
       <p class="notice"><%= notice %></p>
       <p class="alert"><%= alert %></p>
     </div>
-    <div class="row">
-      <div class="col-md-4">
-        <% if current_user %>
-          <%= link_to "New Wiki", new_wiki_path, class: "btn btn-success" %>
-        <% end %>
-      </div>
-    </div>
+
      
     <%= yield %>
 
