@@ -31,10 +31,11 @@ class WikisController < ApplicationController
 
   def update
     @wiki = Wiki.find(params[:id])
+    authorize @wiki
     @wiki.assign_attributes(wiki_params)
 
-    if @wiki.save
-      redirect_to @wiki, notice: "Wiki was created successfully."
+    if @wiki.update(wiki_params)
+      redirect_to @wiki, notice: "Wiki was edited successfully."
     else
       flash.now[:alert] = "Error creating wiki. Please try again."
       render :new

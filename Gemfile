@@ -38,6 +38,8 @@ gem 'thor'
 
 gem 'devise'
 
+gem 'pundit'
+
 group :production do
   gem 'pg'
 end
