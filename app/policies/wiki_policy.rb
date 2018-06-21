@@ -6,7 +6,24 @@ class WikiPolicy
     @wiki = wiki
   end
 
-  def update?
-    user.admin? or (user.id == wiki.user_id)
+  def index?
+    true
   end
+
+  def show?
+    (wiki.private == false) || (user.id == wiki.user_id)
+  end
+
+  def create?
+    !user.nil?
+  end
+
+  def update?
+    !user.nil? && (user.admin? || (user.id == wiki.user_id))
+  end
+
+  def destroy?
+    !user.nil? && (user.admin? || (user.id == wiki.user_id))
+  end
+
 end
