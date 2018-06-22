@@ -5,7 +5,7 @@ describe WikiPolicy do
   subject { WikiPolicy(user, wiki) }
   let(:user) { User.create!(email: "testone@example.com", password: "helloworld")}
   let(:other_user) { User.create!(email: "testtwo@example.com", password: "helloworld")}
-  let(:admin) { User.create!(email: "admin@example.com", password: "helloworld") }
+  let(:admin) { User.create!(email: "admin@example.com", password: "helloworld", role: :admin) }
   let(:visitor) {nil}
   let(:wiki) { Wiki.create!(title: "Example wiki", body: "Example body", private: false, user_id: other_user.id)}
 
