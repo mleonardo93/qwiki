@@ -11,19 +11,23 @@ class WikiPolicy
   end
 
   def show?
-    (wiki.private == false) || (user.id == wiki.user_id)
+    (@wiki.private == false) || (@user.id == @wiki.user_id)
   end
 
   def create?
-    !user.nil?
+    !@user.nil?
+  end
+
+  def edit?
+    !@user.nil? && (@user.admin? || (@user.id == @wiki.user_id))
   end
 
   def update?
-    !user.nil? && (user.admin? || (user.id == wiki.user_id))
+    !@user.nil? && (@user.admin? || (@user.id == @wiki.user_id))
   end
 
   def destroy?
-    !user.nil? && (user.admin? || (user.id == wiki.user_id))
+    !@user.nil? && (@user.admin? || (@user.id == @wiki.user_id))
   end
 
 end

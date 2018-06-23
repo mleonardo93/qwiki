@@ -51,6 +51,25 @@ describe WikiPolicy do
     end
   end
 
+  permissions :edit? do 
+    it "doesn't allow visitor to edit wiki" do
+      expect(WikiPolicy).not_to permit(visitor, wiki)
+    end
+
+    it "doesn't allow user who didn't make wiki to edit wiki" do 
+      expect(WikiPolicy).not_to permit(user, wiki)
+    end
+
+    it "allows wiki creator to edit wiki" do 
+      expect(WikiPolicy).to permit(other_user, wiki)
+    end
+
+    it "allows admin to edit wiki" do 
+      expect(WikiPolicy).to permit(admin, wiki)
+    end
+  end
+
+
   permissions :update? do 
     it "doesn't allow visitor to update wiki" do
       expect(WikiPolicy).not_to permit(visitor, wiki)
