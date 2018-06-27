@@ -1,4 +1,7 @@
 class ChargesController < ApplicationController
+
+  @amount = 1000
+
   def create
     # Creates a Stripe Customer object for associating with charge
     customer = Stripe::Customer.create(
@@ -8,11 +11,12 @@ class ChargesController < ApplicationController
 
     charge = Stripe::Charge.create(
       customer: customer.id,
-      amount: Amount.default,
+      amount: @amount,
       description: "Qwiki Premium - #{current_user.email}",
       currency: "usd"
     )
 
+    current_user.premium!
     flash[:notice] = "Thank you for your payment, #{current_user.email}!"
     redirect_to wikis_path
 
@@ -25,17 +29,8 @@ class ChargesController < ApplicationController
     @stripe_btn_data = {
       key: "#{Rails.configuration.stripe[:publishable_key]}",
       description: "Premium membership - #{current_user.email}",
-      amount: Amount.default
+      amount: @amount
     }
   end
-end
 
-class Amount 
-  def initialize(usd)
-    @pennies = (usd * 100)
-  end
-
-  def default
-    1000
-  end
 end

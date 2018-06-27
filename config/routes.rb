@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get 'subscriptions/upgrade'
+  get 'subscriptions/downgrade'
   get 'charges/create'
   get 'wikis/index'
   get 'wikis/show'
@@ -10,5 +12,7 @@ Rails.application.routes.draw do
   resources :wikis
   root to: "home#index"
   resources :charges, only: [:new, :create]
+  get 'upgrade', to: 'subscriptions#upgrade'
+  get 'downgrade', to: 'subscriptions#downgrade'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end
