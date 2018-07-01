@@ -11,7 +11,7 @@ class WikiPolicy
   end
 
   def show?
-    (@wiki.private == false) || (@user.id == @wiki.user_id)
+    @wiki.private != true || (@user.id == @wiki.user_id)
   end
 
   def create?
