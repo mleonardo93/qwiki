@@ -5,6 +5,10 @@ class SubscriptionsController < ApplicationController
 
   def downgrade
     @user = current_user
-    @user.user!
+    @user.user! 
+    @user_wikis = Wiki.where(user_id: @user.id)
+    @user_wikis.each do |wiki|
+      wiki.private = false
+    end
   end
 end

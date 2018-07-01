@@ -18,6 +18,10 @@ class WikiPolicy
     !@user.nil?
   end
 
+  def new?
+    !@user.nil?
+  end
+
   def edit?
     !@user.nil? && (@user.admin? || (@user.id == @wiki.user_id))
   end

@@ -16,7 +16,7 @@
         <li><%= link_to "Wikis", wikis_path %></li>
         
         <% if current_user && current_user.premium? %>
-          <li><%= link_to "Downgrade account", downgrade_path %></li>
+          <li><%= link_to "Downgrade account", downgrade_path, method: :get, data: { confirm: "Are you sure? Your private wikis will become public!"} %></li>
         <% elsif current_user && current_user.user? %>
           <li><%= link_to "Upgrade to premium!", upgrade_path %></li>
         <% end %>
