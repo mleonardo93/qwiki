@@ -12,7 +12,16 @@
     password: Faker::Internet.password(8)
   )
 end
+
+5.times do 
+  User.create!(    
+    email: Faker::Internet.email,
+    password: Faker::Internet.password(8),
+    role: :premium
+  )
+end
 users = User.all
+
 
 50.times do
   Wiki.create!(

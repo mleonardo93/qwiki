@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get 'collaborators/create'
+  get 'collaborators/edit'
   get 'subscriptions/upgrade'
   get 'subscriptions/downgrade'
   get 'charges/create'
@@ -12,6 +14,7 @@ Rails.application.routes.draw do
   resources :wikis
   root to: "home#index"
   resources :charges, only: [:new, :create]
+  resources :collaborators, only: [:new, :create, :edit, :destroy]
   get 'upgrade', to: 'subscriptions#upgrade'
   get 'downgrade', to: 'subscriptions#downgrade'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
