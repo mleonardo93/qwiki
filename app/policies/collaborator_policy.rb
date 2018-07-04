@@ -1,9 +1,10 @@
-class WikiPolicy
-  attr_reader :user, :collaborator
+class CollaboratorPolicy
+  attr_reader :user, :collaborator, :wiki
 
   def initialize(user, collaborator)
     @user = user
     @collaborator = collaborator
+    @wiki = Wiki.where(id: @collaborator.wiki_id)
   end
 
   def index?
@@ -11,27 +12,27 @@ class WikiPolicy
   end
 
   def show?
-    @user.admin? || (@user.id == @collaborator.user_id)
+    @user.admin? || (@user.id == @collaborator.user_id) || @user.id == @wiki.user_id
   end
 
   def create?
-    @user.admin? || @user.premium?
+    @user.id == @wiki.user_id || @user.admin?
   end
 
   def new?
-    @user.admin? || @user.premium?
+    @user.id == @wiki.user_id || @user.admin?
   end
 
   def edit?
-    !@user.nil? && (@user.admin? || (@user.id == @wiki.user_id))
+    @user.id == @wiki.user_id || @user.admin?
   end
 
   def update?
-    !@user.nil? && (@user.admin? || (@user.id == @wiki.user_id))
+    @user.id == @wiki.user_id || @user.admin?
   end
 
   def destroy?
-    !@user.nil? && (@user.admin? || (@user.id == @wiki.user_id))
+    @user.id == @wiki.user_id || @user.admin?
   end
 
 end
