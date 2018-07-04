@@ -11,10 +11,11 @@ Rails.application.routes.draw do
   devise_for :users
   get 'home/index'
   get 'home/about'
-  resources :wikis
+  resources :wikis do
+    resources :collaborators, only: [:new, :create, :edit, :destroy]
+  end
   root to: "home#index"
   resources :charges, only: [:new, :create]
-  resources :collaborators, only: [:new, :create, :edit, :destroy]
   get 'upgrade', to: 'subscriptions#upgrade'
   get 'downgrade', to: 'subscriptions#downgrade'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
