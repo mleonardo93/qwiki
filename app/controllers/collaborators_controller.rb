@@ -1,10 +1,9 @@
 class CollaboratorsController < ApplicationController
   def create
     @wiki = Wiki.find(params[:wiki_id])
-    @collaborator = Collaborator.new
+    @collaborator = @wiki.collaborators.build(params[:user_id])
     @collaborator_user = User.find_by_email(params[:collaborator][:temp_user_email])
     @collaborator.user_id = @collaborator_user.id 
-    authorize @collaborator
     if @collaborator.save
       flash[:notice] = "Collaborator was added."
       redirect_to wikis_path
