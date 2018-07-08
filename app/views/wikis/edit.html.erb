@@ -33,8 +33,9 @@
     <p>
       <a href src="https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet">Markdown</a> is supported for wikis.
     </p>
-    
-    <%= render partial: "collaborators/form", locals: { wiki: @wiki } %>
-    
+    <% if @wiki.private? %>
+      <h3>Add collaborators</h3>
+      <%= render partial: "collaborators/form", locals: { wiki: @wiki } %>
+    <% end %>
   </div>
 </div>

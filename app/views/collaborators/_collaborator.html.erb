@@ -1,0 +1,6 @@
+<div>
+  <h3>
+    <%= collaborator.name %>
+  </h3>
+  <%= link_to "Remove?", wiki_collaborator_path(:wiki_id => @wiki.id, :id => collaborator.id), method: :delete %>
+</div> 

@@ -44,20 +44,24 @@ class WikiPolicy
 
     def resolve
       wikis = []
-      if user.role == "admin"
+      if !user || user.role == "user"
+        all_wikis = scope.all
+        wikis = []
+        all_wikis.each do |wiki|
+          collaborators_ids = []
+          wiki.collaborators.each do |collaborator|
+            collaborators_ids << collaborator.user_id
+          end
+          if !wiki.private? || collaborators_ids.include?(user.id)
+            wikis << wiki
+          end
+        end
+      elsif user.role == "admin"
         wikis = scope.all 
       elsif user.role == "premium"
         all_wikis = scope.all
         all_wikis.each do |wiki|
           if !wiki.private? || wiki.user_id == user.id || wiki.collaborators.include?(user)
-            wikis << wiki
-          end
-        end
-      else
-        all_wikis = scope.all
-        wikis = []
-        all_wikis.each do |wiki|
-          if !wiki.private? || wiki.collaborators.include?(user)
             wikis << wiki
           end
         end
